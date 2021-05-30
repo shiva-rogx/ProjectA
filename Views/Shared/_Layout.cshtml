@@ -1,0 +1,73 @@
+﻿@using System.Security.Claims
+@using ClinicManagement.Core.Models
+@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Clinic Management System</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+
+<body class="nav-md">
+    <div id="header">
+        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+            <div class="menu_section">
+                @if (User.IsInRole(RoleName.AdministratorRoleName))
+
+
+
+                {
+                    @Html.Partial("_AdminNav")
+
+
+
+                }
+                @if (User.IsInRole(RoleName.DoctorRoleName))
+
+
+
+                {
+                    @Html.Partial("_DoctorNav")
+
+
+
+                }
+            </div>
+
+        </div>
+    </div>
+    <div class="container body">
+        <div class="main_container" >
+            
+               
+            <div class="row" style="background: linear-gradient(to bottom, #33ccff 0%, #ff99cc 100%);; overflow:hidden; height:80vh">
+                <div class="col-md-2" >
+                    <img src="logo.png" alt="..." class="img-circle profile_img">
+                    
+                </div>
+                <div class="col-md-8">
+                    @RenderBody()
+                </div>
+                <div class="col-md-2"> 
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+
+            @* </div> *@
+            
+
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+
+</body>
+
+</html>

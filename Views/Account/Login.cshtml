@@ -1,0 +1,65 @@
+﻿@model ClinicManagement.Core.ViewModel.LoginViewModel
+@{
+    Layout = "~/Views/Shared/_LayoutOut.cshtml";
+    ViewBag.Title = "Log in";
+}
+<div>
+    <div class="login_wrapper">
+        <section id="loginForm" class="login_content">
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "animate form login_form", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <h1>Login Form</h1>
+                    
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div>
+                       
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                        
+                </div>
+                    
+                <div>
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                </div>
+                 
+                    
+                <div >
+                    <input type="submit" value="Log in" class="btn btn-default" />
+                    <div class="checkbox">
+                        @Html.CheckBoxFor(m => m.RememberMe)
+                        @Html.LabelFor(m => m.RememberMe)
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+                <div class="separator">
+                    <p class="change_link">
+                        <a href="#signup" class="to_register"> Sign Up Here</a>
+                    </p>
+
+                    <div class="clearfix"></div>
+                    <br /><br /><br />
+                    <div>
+                        <h1><i class="fa fa-heartbeat"></i>  Clinic Managment System</h1>
+
+                        <h4>By SHIVA M C</h4>
+
+                    </div>
+                </div>
+
+                  
+            }
+        </section>
+    </div>
+  
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+
+
