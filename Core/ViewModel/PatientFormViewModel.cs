@@ -20,8 +20,6 @@ namespace ClinicManagement.Core.ViewModel
         [Required]
         [ValidDate]
         public string BirthDate { get; set; }
-
-
         [Required]
         public string Phone { get; set; }
         [Required]

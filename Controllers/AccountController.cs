@@ -81,8 +81,6 @@ namespace ClinicManagement.Controllers
             {
                 case SignInStatus.Success:
                     return RedirectToLocal(returnUrl);
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
@@ -90,11 +88,8 @@ namespace ClinicManagement.Controllers
             }
         }
 
-        //
-        // GET: /Account/VerifyCode
-       
+  
 
-        //
         // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register()
@@ -102,7 +97,7 @@ namespace ClinicManagement.Controllers
             return View();
         }
 
-        //
+        
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
@@ -118,13 +113,6 @@ namespace ClinicManagement.Controllers
                     UserManager.AddToRole(user.Id, RoleName.AdministratorRoleName);
                     UserManager.AddClaim(user.Id, new Claim(ClaimTypes.GivenName, model.Name));
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
                     return RedirectToAction("Index", "Home");
                 }
 
@@ -143,7 +131,7 @@ namespace ClinicManagement.Controllers
             var viewModel = new DoctorFormViewModel()
             {
                 Specializations = _unitOfWork.Specializations.GetSpecializations()
-                // Doctors = _doctorRepository.GetDectors()
+                
             };
             return View("DoctorForm", viewModel);
         }
@@ -247,23 +235,7 @@ namespace ClinicManagement.Controllers
             return View(editUser);
         }
 
-
-
-        // GET: /Account/ConfirmEmail
-        [AllowAnonymous]
-        public async Task<ActionResult> ConfirmEmail(string userId, string code)
-        {
-            if (userId == null || code == null)
-            {
-                return View("Error");
-            }
-
-            var result = await UserManager.ConfirmEmailAsync(userId, code);
-            return View(result.Succeeded ? "ConfirmEmail" : "Error");
-        }
-
        
-        //
         // POST: /Account/LogOff
         [HttpPost]
         [ValidateAntiForgeryToken]

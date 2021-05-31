@@ -16,7 +16,6 @@ namespace ClinicManagement.Core.Helpers
                               Text = ToDescription(e),
                               Value = e.ToString()
                           });
-
             return values;
         }
 
